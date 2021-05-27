@@ -19,7 +19,6 @@
 /------------------------------------------------------------------------------------------------------*/
 var controlString = "ACAOnLoad"
 var preExecute = "PreExecuteForAfterEvents"				// Standard choice to execute first (for globals, etc)
-var documentOnly = false;								// Document Only -- displays hierarchy of std choice steps
 var showMessage = false; // Set to true to see results in popup window
 var showDebug = false; // Set to true to see debug messages in popup window
 var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
@@ -70,14 +69,6 @@ else
 }
 eval(getScriptText("INCLUDES_CUSTOM", null, useCustomScriptFile));
 
-if (documentOnly) 
-{
-	doStandardChoiceActions(controlString, false, 0);
-	aa.env.setValue("ScriptReturnCode", "0");
-	aa.env.setValue("ScriptReturnMessage", "Documentation Successful.  No actions executed.");
-	aa.abortScript();
-}
-var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX", controlString);
 function getScriptText(vScriptName, servProvCode, useProductScripts) 
 {
 	if (!servProvCode)  servProvCode = aa.getServiceProviderCode();
@@ -140,30 +131,14 @@ try {
 		for(var i = 0; i < components.length; i++)
 		{
 			am.explore(components[i]);
+			controlString += components.componentName;
+			am.log(controlString);
+			var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX", controlString);	
+			am.log(prefix);
+			doScriptActions();
+
 		}
 	}
-	/*
-//  Get the Standard choices entry we'll use for this App type
-//  Then, get the action/criteria pairs for this app
-if (doStdChoices)
-{
-	doStandardChoiceActions(controlString, true, 0);
-}
-//  Next, execute and scripts that are associated to the record type
-if (doScripts)
-{
-	doScriptActions();
-}
-// Check for invoicing of fees
-if (feeSeqList.length)
-{
-	invoiceResult = aa.finance.createInvoice(capId, feeSeqList, paymentPeriodList);
-	if (invoiceResult.getSuccess())
-		logMessage("Invoicing assessed fee items is successful.");
-	else
-		logMessage("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " +  invoiceResult.getErrorMessage());
-}
-*/
 	
 } catch (err) {
 	handleError(err,"ACAOnLoadMaster in Logic");
