@@ -1,2 +1,4 @@
 
 *.code-workspace
+.eslintrc.json
+*.code-snippets
