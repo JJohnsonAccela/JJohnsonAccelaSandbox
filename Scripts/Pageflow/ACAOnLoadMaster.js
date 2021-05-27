@@ -131,7 +131,7 @@ try {
 		for(var i = 0; i < components.length; i++)
 		{
 			am.explore(components[i]);
-			controlString += components.componentName;
+			controlString += components[i].componentName;
 			am.log(controlString);
 			var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX", controlString);	
 			am.log(prefix);
