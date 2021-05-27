@@ -134,12 +134,12 @@ logGlobals(AInfo);
 |
 /-----------------------------------------------------------------------------------------------------*/
 try {
-	var components = getPageComponents(capId)
-	if(pageComponents != null && pageComponents.length > 0)
+	var components = getPageComponents(capId, 1, 2);
+	if(components != null && components.length > 0)
 	{
-		for(var i = 0; i < pageComponents.length; i++)
+		for(var i = 0; i < components.length; i++)
 		{
-			am.explore(pageComponents[i]);
+			am.explore(components[i]);
 		}
 	}
 	/*
