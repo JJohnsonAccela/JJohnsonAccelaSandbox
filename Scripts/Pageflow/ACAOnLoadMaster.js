@@ -125,6 +125,18 @@ logGlobals(AInfo);
 |
 /-----------------------------------------------------------------------------------------------------*/
 try {
+	//Log All Environmental Variables as  globals
+var params = aa.env.getParamValues();
+var keys =  params.keys();
+var key = null;
+am.log("all aa envs:{");
+while(keys.hasMoreElements())
+{
+ key = keys.nextElement();
+ eval("var " + key + " = aa.env.getValue(\"" + key + "\");");
+ am.log("Loaded Env Variable: " + key + " = " + aa.env.getValue(key));
+}
+am.log("}");
 	var components = getPageComponents(capId, 1, 2);
 	if(components != null && components.length > 0)
 	{
@@ -136,7 +148,6 @@ try {
 			var prefix = lookup("EMSE_VARIABLE_BRANCH_PREFIX", controlString);	
 			am.log(prefix);
 			doScriptActions();
-
 		}
 	}
 	
