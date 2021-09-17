@@ -14,7 +14,7 @@ var inspectFunctionText = inspect.toString();
 var script = aa.env.paramValues.get("scriptText");
 script = inspectFunctionText + "\r\n" + script;
 
-var result = emse.testScript(script, aa.serviceProviderCode,null,"ADMIN",true,"Use User Transaction");
+var result = emse.testScript(script, aa.serviceProviderCode,null,"ADMIN",true,"Always Rollback");
 
 if (result.getSuccess()) {
     aa.env.paramValues.put("ScriptResult", result.getOutput());
