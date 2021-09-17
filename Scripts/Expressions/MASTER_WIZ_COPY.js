@@ -4,13 +4,7 @@ if(parentCapId && appMatch("Building/Wizard/NA/NA",parentCapId)) {
 	var PAInfo = [];
 	loadAppSpecific(PAInfo,parentCapId);
 
-	for(var pv in PAInfo) {
-		logDebug(pv + " : " + PAInfo[pv]);
-		AInfo[pv] = PAInfo[pv];
-		logDebug(pv + " : " + AInfo[pv]);
-	}
-
-	for(var v in AInfo) {
+	for(var v in PAInfo) {
 		var matchLabel = String(v).replace(/[^a-zA-Z0-9]+/g,"").toLowerCase();
 		logDebug("match-" + matchLabel);
 		for(var fv in CFS) {
@@ -18,12 +12,12 @@ if(parentCapId && appMatch("Building/Wizard/NA/NA",parentCapId)) {
 			logDebug("label-" + label);
 			logDebug("check-" + label.substring(15));
 			if(label.indexOf("RESIDENTIALONLY") > -1 && label.substring(16).equals(matchLabel)) {
-				CFS[fv].value = AInfo[v];
+				CFS[fv].value = PAInfo[v];
 				expression.setReturn(CFS[fv]);
 				logDebug("value-" + CFS[fv].value);
 				break;
 			} else if(label.indexOf("COMMERCIALONLY") > -1 && label.substring(15).equals(matchLabel)) {
-				CFS[fv].value = AINfo[v];
+				CFS[fv].value = PAINfo[v];
 				expression.setReturn(CFS[fv]);
 				logDebug("value-" + CFS[fv].value);
 				break;
